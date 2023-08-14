@@ -1,0 +1,29 @@
+{
+  "name": "maplibre-gl-sample-control",
+  "version": "0.1.0",
+  "license": "MIT",
+  "homepage": "https://xiupos.github.io/maplibre-gl-sample-control/",
+  "repository": "https://github.com/xiupos/maplibre-gl-sample-control",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/maplibre-gl-sample-control.js",
+  "types": "./src/vite-env.d.ts",
+  "type": "module",
+  "scripts": {
+    "dev:demo": "vite",
+    "dev:lib": "vite --config vite.lib.config.ts",
+    "build": "pnpm build:lib && pnpm build:demo",
+    "build:demo": "tsc && vite build",
+    "build:lib": "tsc --project ./tsconfig.lib.json && vite build --config vite.lib.config.ts",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.65.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "maplibre-gl": "^3.3.0"
+  }
+}
