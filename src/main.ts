@@ -4,7 +4,7 @@ import './style.scss';
 // Type of options
 interface Options {
   text: string;
-}
+};
 
 // Default options
 const defaultOptions: Options = {
@@ -12,37 +12,73 @@ const defaultOptions: Options = {
 };
 
 export class SampleControl {
-  _text: string;
-  _container: HTMLDivElement;
-  _map: Map | null;
+  #text: string;
+  #container: HTMLDivElement;
+  #map: Map | null;
 
   constructor(options?: Options) {
-    this._text = options?.text || defaultOptions.text;
+    this.#text = options?.text || defaultOptions.text;
+    this.#container = document.createElement('div');
+    this.#map = null;
+  };
 
-    // Create a container
-    this._container = document.createElement('div');
-    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-    this._container.id = 'sample-control';
+  // Add a paragraph
+  #paragraphAdd(text: string) {
+    // Create a paragraph
+    const paragraph = document.createElement('p');
+    paragraph.innerText = text;
 
-    // Add a text
-    const text = document.createElement('p');
-    text.innerText = this._text;
+    // Add to the container
+    this.#container.appendChild(paragraph);
+  };
 
-    // Add the container
-    this._container.appendChild(text);
-    this._map = null;
-  }
+  // Add a fly button
+  #flyButtonAdd({ text, lnglat, zoom = 10, speed = 0.8 }: { text: string, lnglat: [number, number], zoom?: number, speed?: number }) {
+    // Create a button
+    const flyButton = document.createElement('input');
+    flyButton.type = 'button';
+    flyButton.value = text;
+
+    // Add a click event
+    flyButton.addEventListener('click', () => {
+      this.#map?.flyTo({
+        center: lnglat,
+        zoom: zoom,
+        speed: speed
+      });
+    });
+
+    // Add to the container
+    this.#container.appendChild(flyButton);
+  };
+
+  // Add a container
+  #sampleControlAdd() {
+    // Set class names and id's
+    this.#container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+    this.#container.id = 'sample-control';
+
+    // Please write your favorite control here
+    // For example,
+
+    // Add a custom text
+    this.#paragraphAdd(this.#text);
+
+    // Add a fry-to-Sapporo button
+    this.#flyButtonAdd({ text: 'Fly to Sapporo', lnglat: [141.34, 43.07] });
+  };
 
   onAdd(map: Map) {
-    this._map = map;
+    this.#map = map;
 
-    // Add the container
-    return this._container;
-  }
+    // Add the control
+    this.#sampleControlAdd();
+    return this.#container;
+  };
 
   onRemove() {
-    // Remove the container
-    this._container.parentNode?.removeChild(this._container);
-    this._map = null;
-  }
-}
+    // Refly the container
+    this.#container.parentNode?.removeChild(this.#container);
+    this.#map = null;
+  };
+};
