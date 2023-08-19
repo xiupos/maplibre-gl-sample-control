@@ -1,4 +1,4 @@
-import { Map } from 'maplibre-gl';
+import type { Map } from 'maplibre-gl';
 import type { IControl } from 'maplibre-gl';
 import './style.scss';
 
