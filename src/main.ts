@@ -1,7 +1,8 @@
 import { Map } from 'maplibre-gl';
+import type { IControl } from 'maplibre-gl';
 import './style.scss';
 
-// Type of options
+// Type for options
 interface Options {
   text: string;
 };
@@ -11,29 +12,28 @@ const defaultOptions: Options = {
   text: 'Hello, world!',
 };
 
-export class SampleControl {
-  #text: string;
-  #container: HTMLDivElement;
-  #map: Map | null;
+export class SampleControl implements IControl {
+  private text: string;
+  private container!: HTMLDivElement;
+  private map: Map | null;
 
   constructor(options?: Options) {
-    this.#text = options?.text || defaultOptions.text;
-    this.#container = document.createElement('div');
-    this.#map = null;
+    this.text = options?.text || defaultOptions.text;
+    this.map = null;
   };
 
   // Add a paragraph
-  #paragraphAdd(text: string) {
+  private paragraphAdd(text: string) {
     // Create a paragraph
     const paragraph = document.createElement('p');
     paragraph.innerText = text;
 
     // Add to the container
-    this.#container.appendChild(paragraph);
+    this.container.appendChild(paragraph);
   };
 
   // Add a fly button
-  #flyButtonAdd({ text, lnglat, zoom = 10, speed = 0.8 }: { text: string, lnglat: [number, number], zoom?: number, speed?: number }) {
+  private flyButtonAdd({ text, lnglat, zoom = 10, speed = 0.8 }: { text: string, lnglat: [number, number], zoom?: number, speed?: number }) {
     // Create a button
     const flyButton = document.createElement('input');
     flyButton.type = 'button';
@@ -41,7 +41,7 @@ export class SampleControl {
 
     // Add a click event
     flyButton.addEventListener('click', () => {
-      this.#map?.flyTo({
+      this.map?.flyTo({
         center: lnglat,
         zoom: zoom,
         speed: speed
@@ -49,36 +49,37 @@ export class SampleControl {
     });
 
     // Add to the container
-    this.#container.appendChild(flyButton);
+    this.container.appendChild(flyButton);
   };
 
   // Add a container
-  #sampleControlAdd() {
+  private sampleControlAdd() {
     // Set class names and id's
-    this.#container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-    this.#container.id = 'sample-control';
+    this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+    this.container.id = 'sample-control';
 
     // Please write your favorite control here
     // For example,
 
     // Add a custom text
-    this.#paragraphAdd(this.#text);
+    this.paragraphAdd(this.text);
 
     // Add a fry-to-Sapporo button
-    this.#flyButtonAdd({ text: 'Fly to Sapporo', lnglat: [141.34, 43.07] });
+    this.flyButtonAdd({ text: 'Fly to Sapporo', lnglat: [141.34, 43.07] });
   };
 
   onAdd(map: Map) {
-    this.#map = map;
+    this.container = document.createElement('div');
+    this.map = map;
 
     // Add the control
-    this.#sampleControlAdd();
-    return this.#container;
+    this.sampleControlAdd();
+    return this.container;
   };
 
   onRemove() {
     // Refly the container
-    this.#container.parentNode?.removeChild(this.#container);
-    this.#map = null;
+    this.container.parentNode?.removeChild(this.container);
+    this.map = null;
   };
 };
