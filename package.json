@@ -11,6 +11,7 @@
   "types": "./src/vite-env.d.ts",
   "type": "module",
   "scripts": {
+    "dev": "pnpm dev:demo",
     "dev:demo": "vite",
     "dev:lib": "vite --config vite.lib.config.ts",
     "build": "pnpm build:lib && pnpm build:demo",
