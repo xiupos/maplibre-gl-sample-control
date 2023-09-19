@@ -12,6 +12,7 @@
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/maplibre-gl-sample-control.js",
       "require": "./dist/maplibre-gl-sample-control.cjs"
     },
