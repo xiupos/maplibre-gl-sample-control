@@ -7,8 +7,16 @@
   "files": [
     "dist"
   ],
+  "main": "./dist/maplibre-gl-sample-control.cjs",
   "module": "./dist/maplibre-gl-sample-control.js",
   "types": "./src/vite-env.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/maplibre-gl-sample-control.js",
+      "require": "./dist/maplibre-gl-sample-control.cjs"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
   "type": "module",
   "scripts": {
     "dev": "pnpm dev:demo",
