@@ -11,7 +11,6 @@ export default defineConfig({
     lib: {
       entry: "src/main.ts",
       formats: ["es", "cjs"],
-      fileName: "maplibre-gl-sample-control",
     },
   },
   plugins: [
