@@ -9,7 +9,7 @@
   ],
   "main": "./dist/maplibre-gl-sample-control.cjs",
   "module": "./dist/maplibre-gl-sample-control.js",
-  "types": "./src/vite-env.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/maplibre-gl-sample-control.js",
@@ -30,7 +30,8 @@
   "devDependencies": {
     "sass": "^1.65.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.5.3"
   },
   "dependencies": {
     "maplibre-gl": "^3.3.0"
