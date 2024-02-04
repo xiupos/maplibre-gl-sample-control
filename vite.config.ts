@@ -1,9 +1,19 @@
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: "demo",
   build: {
-    outDir: "../docs",
+    outDir: "dist",
+    emptyOutDir: false,
+    sourcemap: true,
+
+    lib: {
+      entry: "src/main.ts",
+      formats: ["es", "cjs"],
+    },
   },
+  plugins: [
+    dts({ rollupTypes: true }),
+  ],
 });

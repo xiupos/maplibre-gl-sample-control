@@ -2,6 +2,7 @@
   "name": "maplibre-gl-sample-control",
   "version": "0.1.0",
   "license": "MIT",
+  "type": "module",
   "homepage": "https://xiupos.github.io/maplibre-gl-sample-control/",
   "repository": "https://github.com/xiupos/maplibre-gl-sample-control",
   "files": [
@@ -18,14 +19,13 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "type": "module",
   "scripts": {
     "dev": "pnpm dev:demo",
-    "dev:demo": "vite",
-    "dev:lib": "vite --config vite.lib.config.ts",
+    "dev:demo": "vite --config vite.demo.config.ts",
+    "dev:lib": "vite",
     "build": "pnpm build:lib && pnpm build:demo",
-    "build:demo": "tsc && vite build",
-    "build:lib": "tsc --project ./tsconfig.lib.json && vite build --config vite.lib.config.ts",
+    "build:demo": "tsc --project ./tsconfig.demo.json && vite build --config vite.demo.config.ts",
+    "build:lib": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
